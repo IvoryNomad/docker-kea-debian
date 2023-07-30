@@ -16,8 +16,8 @@ RUN <<EOT /bin/bash
     rm -rf /var/cache/* /var/log/* /tmp/* /var/lib/dpkg/status-old
 EOT
 
-RUN mkdir -p /opt/kea/leases
+RUN mkdir -p /opt/kea/leases /var/run/kea
 COPY ./files/config /etc/kea
-COPY ./files/30-kea.sh /entrypoint.d
-RUN chmod +x /entrypoint.d/30-kea.sh
+COPY ./files/kea-supervisor.conf /etc/supervisor/conf.d
 VOLUME [ "/etc/kea", "/var/log/kea", "/opt/kea/leases" ]
+EXPOSE 8086
